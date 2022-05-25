@@ -32,27 +32,61 @@ struct Node {
 
 class Solution{
   public:
+  
+    Node* getMid(Node *head)
+    {
+        Node*slow=head;
+        Node*fast=head->next;
+        
+        while(fast!=NULL && fast->next !=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        return slow;
+    }
+    
+    Node* reverse(Node *head)
+    {
+        Node* temp=head;
+        Node*prev=NULL;
+        Node*next=NULL;
+        
+        while(temp!=NULL)
+        {
+            next=temp->next;
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+        }
+        return prev;
+    }
+    
     //Function to check whether the list is palindrome.
     bool isPalindrome(Node *head)
     {
         //Your code here
-        int original=0,reverse=0,c=0;
+        if(head->next==NULL)
+        return true;
         
+        
+        Node* middle=getMid(head);
+        
+        middle->next=reverse(middle->next);
         Node*temp=head;
-        while(temp!=NULL)
+        Node*temp2=middle->next;
+        
+        while(temp2!=NULL)
         {
-            int val=temp->data;
-            
-            original=original*10+val;
-            reverse=reverse+pow(10,c)*val;
-            c++;
+            if(temp->data !=temp2->data)
+            return false;
             temp=temp->next;
-            
+            temp2=temp2->next;
         }
         
-        if(original == reverse)
+        temp=middle->next;
         return true;
-        return false;
+        
     }
 };
 
