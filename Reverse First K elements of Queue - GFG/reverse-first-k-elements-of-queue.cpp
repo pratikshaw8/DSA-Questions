@@ -29,47 +29,32 @@ int main() {
 
 // User function Template for C++
 
-void modify(queue<int> &q,int k,int n,deque<int>& dq)
+void firstK(queue<int>&q,int k)
 {
-    if(q.empty())
-    return ;
+    if(k==0)
+    return;
     
-
-    if(k>0)
-    {
-        int ele=q.front();
-        q.pop();
-        dq.push_front(ele);
-        modify(q,k-1,n-1,dq);
-    }
-    else
-    {
-        int ele=q.front();
-        q.pop();
-        dq.push_back(ele);
-        modify(q,k-1,n-1,dq);
-    }
-    
-    
-    
-    
-    
-    
+    int ele=q.front();
+    q.pop();
+    firstK(q,k-1);
+    q.push(ele);
 }
 
 // Function to reverse first k elements of a queue.
 queue<int> modifyQueue(queue<int> q, int k) {
     // add code here
     
-    deque<int> dq;
+    firstK(q,k);
     
-    modify(q,k,q.size(),dq);
-    
-    while(!dq.empty())
+    int t=q.size()-k;
+    while(t>0)
     {
-        q.push(dq.front());
-        dq.pop_front();
+        int ele=q.front();
+        q.pop();
+        q.push(ele);
+        t--;
     }
+    
     return q;
     
 }
