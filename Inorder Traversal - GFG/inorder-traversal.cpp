@@ -35,6 +35,9 @@ class Solution {
     // Function to return a list containing the inorder traversal of the tree.
     vector<int> inOrder(Node* root) {
         // Your code here
+        
+        //RECURSION
+        /*
         if(root==NULL)
         return ans;
         
@@ -42,6 +45,33 @@ class Solution {
         ans=inOrder(root->left);
         ans.push_back(root->data);
         ans=inOrder(root->right);
+        return ans;
+        */
+    
+        //ITERATIVE
+        
+        if(root==NULL)
+        return ans;
+        
+        stack<Node*> st;
+        
+        while(!st.empty() or root!=NULL)
+        {
+            if(root!=NULL)
+            {
+                st.push(root);
+                root=root->left;
+            }
+            else
+            {
+                root=st.top();
+                st.pop();
+                ans.push_back(root->data);
+                root=root->right;
+                
+            }
+            
+        }
         return ans;
     }
 };
