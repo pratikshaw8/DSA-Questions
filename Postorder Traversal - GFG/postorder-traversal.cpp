@@ -136,7 +136,52 @@ void solve(Node *root, vector<int>& ans)
 vector <int> postOrder(Node* root)
 {
   // Your code here
+  //RECURSION
+  /*
   vector<int> ans;
   solve(root,ans);
   return ans;
+  */
+  vector<int> ans;
+  stack<Node*> st;
+  unordered_map<Node* ,int> visited;
+  st.push(root);
+  
+  while(!st.empty())
+  {
+      visited[st.top()]=1;
+      
+      if(st.top()->left)
+      {
+          if(!visited[st.top()->left])
+          {
+              st.push(st.top()->left);
+              continue;
+          }
+      }
+      
+      
+      if(st.top()->right)
+      {
+          if(!visited[st.top()->right])
+          {
+              st.push(st.top()->right);
+              continue;
+          }
+      }
+      
+      ans.push_back(st.top()->data);
+      st.pop();
+  }
+  
+  return ans;
+  
+  
 }
+
+
+
+
+
+
+
