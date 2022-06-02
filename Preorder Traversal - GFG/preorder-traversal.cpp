@@ -141,8 +141,42 @@ void solve(Node *root, vector<int>& ans)
 vector <int> preorder(Node* root)
 {
   // Your code here
+  /*
   vector<int> ans;
   solve(root,ans);
   return ans;
+  */
+  vector<int> ans;
+  stack<Node*> st;
+  
+  while(!st.empty() or root!=NULL)
+  {
+      if(root!=NULL)
+      {
+          ans.push_back(root->data);
+          st.push(root);
+          root=root->left;
+      }
+      else
+      {
+          root=st.top();
+          st.pop();
+          root=root->right;
+          
+      }
+  }
+  return ans;
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
