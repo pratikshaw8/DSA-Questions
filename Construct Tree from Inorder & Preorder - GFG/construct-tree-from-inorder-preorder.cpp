@@ -42,14 +42,14 @@ struct Node
 class Solution{
     public:
     int idx=0;
-    int searchPos(int in[] ,int start,int end,int curr)
+    map<int,int> m;
+    void createMap(int in[] ,int n)
     {
-        for(int i=start;i<=end;i++)
+        for(int i=0;i<n;i++)
         {
-            if(in[i] == curr)
-            return i;
+            m[in[i]]=i;
         }
-        return -1;
+        
     }
     
     Node * solve(int in[],int pre[],int start,int end)
@@ -60,7 +60,7 @@ class Solution{
         
        
         int curr=pre[idx];
-        int pos=searchPos(in,start,end,curr);
+        int pos=m[curr];
         idx++;
         
         Node *newNode= new Node(curr);
@@ -76,6 +76,7 @@ class Solution{
     Node* buildTree(int in[],int pre[], int n)
     {
         // Code here
+        createMap(in,n);
         Node * ans=solve(in,pre,0,n-1);
         return ans;
         
