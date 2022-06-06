@@ -42,52 +42,59 @@ struct Node
 	
 };
 */ 
-struct compare
-{
-    bool operator()(Node *a, Node *b)
-    {
-        return a->data > b->data;
-    }
-};
-    
+
 class Solution{
   public:
+  
+  Node * merge(Node *a, Node *b)
+  {
+      if(!a and !b)
+      return NULL;
+      
+      
+      Node *result;
+      if(a and !b)
+      return a;
+      else if(!a and b)
+      return b;
+      else
+      {
+          
+          if(a->data <= b->data)
+          {
+              result=a;
+              result->next=merge(a->next,b);
+          }
+          else
+          {
+              result=b;
+              result->next=merge(a,b->next);
+          }
+      }
+      return result;
+  }
     //Function to merge K sorted linked list.
     Node * mergeKLists(Node *arr[], int K)
     {
            // Your code here
-           priority_queue<Node *,vector<Node *>, compare> mh;
+           int i=0,j=K-1;
+           int last=j;
            
-           for(int i=0;i<K;i++)
+           while(last!=0)
            {
-               mh.push(arr[i]);
+               i=0;
+               j=last;
+               
+               while(i<j)
+               {
+                   arr[i]=merge(arr[i],arr[j]);
+                   i++;
+                   j--;
+                   if(i>=j)
+                   last=j;
+               }
            }
-           
-           Node *root=NULL;
-           Node *curr=root;
-           
-           while(!mh.empty())
-           {
-                Node* temp=mh.top();
-                mh.pop();
-                
-                if(curr)
-                {
-                    curr->next=temp;
-                    curr=curr->next;
-                }
-                else
-                {
-                    root=temp;
-                    curr=temp;
-                }
-                
-                if(temp->next)
-                mh.push(temp->next);
-                
-                
-           }
-           return root;
+           return arr[0];
     }
 };
 
