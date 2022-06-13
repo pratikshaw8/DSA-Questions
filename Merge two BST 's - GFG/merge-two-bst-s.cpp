@@ -159,34 +159,7 @@ class Solution
         return head;
         
     }
-    int countNodes(Node* root)
-    {
-        int c=0;
-        while(root)
-        {
-            c++;
-            root=root->right;
-        }
-        return c++;
-    }
     
-    Node* convertToBST(Node*&head , int n)
-    {
-        if(!head or n<=0) return NULL;
-        
-        Node* left=convertToBST(head,n/2);
-        
-        Node*root=head;
-        root->left=left;
-        
-        head=head->right;
-        
-        root->right=convertToBST(head,n-n/2-1);
-        
-        return root;
-        
-        
-    }
     //Function to return a list of integers denoting the node 
     //values of both the BST in a sorted order.
     vector<int> merge(Node *root1, Node *root2)
