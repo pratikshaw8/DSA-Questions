@@ -101,6 +101,7 @@ struct Node
 class Solution
 {
 public:
+    /*
     unordered_set<int> s;
     
     void fillSet(Node *root)
@@ -126,6 +127,35 @@ public:
         
         int c=0;
         solve(root1,c,x);
+        return c;
+    }
+    */
+    int isPresent(Node *root,int x)
+    {
+        if(root==NULL) return 0;
+        
+        if(root->data== x)
+        return 1;
+        else if(root->data >x)
+        return isPresent(root->left,x);
+        else
+        return isPresent(root->right,x);
+        
+    }
+    
+    void solve(Node *root1, Node*root2, int x ,int &c)
+    {
+        if(root1==NULL) return;
+        
+        solve(root1->left,root2,x,c);
+        if(isPresent(root2, x - root1->data))
+        c++;
+        solve(root1->right, root2, x, c);
+    }
+    int countPairs(Node*root1, Node *root2,int x)
+    {
+        int c=0;
+        solve(root1,root2,x,c);
         return c;
     }
 };
