@@ -8,39 +8,41 @@ using namespace std;
 class Solution {
 public:
 
-    
+    static bool mycmp(int a,int b)
+    {
+        return (a/1000) < (b/1000);
+    }
     
     int buyMaximumProducts(int n, int k, int price[]){
         //Write your code here
         
-        vector<pair<int,int>> v;
+        int m=1000;
         
         for(int i=0;i<n;i++)
         {
-            v.push_back({price[i],i+1});
+            price[i] =(price[i]*m) +i+1;
         }
         
-        sort(v.begin(),v.end());
-        
-        int remaining=k;
-        int stocks=0;
-        
+        sort(price,price+n,mycmp);
+        int ans=0;
         for(int i=0;i<n;i++)
         {
-            pair<int,int> p=v[i];
+            int x=price[i]/m;
+            int maxStock=price[i]%m;
             
-            int price=p.first;
-            int maxStock=p.second;
-            
-            if(price > remaining) break;
-            
-            int currStock= remaining/price;
-            int s= min(maxStock,currStock);
-            stocks+=s;
-            remaining -= price*s;
+            if(x*maxStock >=k)
+            {
+                int bought=k/x;
+                ans+= bought;
+                k-= x*bought;
+                continue;
+                
+            }
+            ans+=maxStock;
+            k-= x*maxStock;
             
         }
-        return stocks;
+        return ans;
     }
 };
 
