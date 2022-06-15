@@ -7,46 +7,27 @@ class Solution
 {
 public:
 
-    static bool mycmp(int a,int b)
-    {
-        return a>b;
-    }
+    
     vector<int> candyStore(int candies[], int N, int K)
     {
         // Write Your Code here
-        int temp[N];
+        sort(candies,candies+N);
+        int minSum=0;
+        int maxSum=0;
         
-        copy_n(candies, N, temp);
+        int i=0,j=0;
         
-        
-        int minAmount=0;
-        sort(temp,temp+N);
-        
-        int i=0,j=N-1;
-        while(i<=j and j>=0)
+        while(i+j <N)
         {
-            minAmount+=temp[i];
-            j=j-K;
-            i++;
+            minSum+=candies[i];
+            maxSum+=candies[N-i-1];
             
-        }
-        
-        copy_n(candies, N, temp);
-        int maxAmount=0;
-        sort(temp,temp+N,mycmp);
-        
-        i=0;
-        j=N-1;
-        while(i<=j and j>=0)
-        {
-            maxAmount+=temp[i];
-            j=j-K;
             i++;
-            
+            j+=K;
         }
         vector<int> ans;
-        ans.push_back(minAmount);
-        ans.push_back(maxAmount);
+        ans.push_back(minSum);
+        ans.push_back(maxSum);
         return ans;
     }
 };
