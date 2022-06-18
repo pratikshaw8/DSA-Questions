@@ -21,10 +21,35 @@ class Solution
         
         st.push(src);
     }
+    void kanh(vector<int> adj[], vector<int>& indegree,vector<int>& ans,int V)
+    {
+        queue<int> q;
+        for(int i=0;i<V;i++)
+        {
+            if(indegree[i]==0)
+            q.push(i);
+        }
+        
+        while(!q.empty())
+        {
+            int front=q.front();
+            q.pop();
+            
+            ans.push_back(front);
+            
+            for(auto i: adj[front])
+            {
+                indegree[i]--;
+                if(indegree[i]==0)
+                    q.push(i);
+            }
+        }
+    }
 	//Function to return list containing vertices in Topological order. 
-	vector<int> topoSort(int v, vector<int> adj[]) 
+	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
+	    /* USING DFS
 	    vector<bool> visited(v);
         stack<int> st;
         
@@ -44,7 +69,40 @@ class Solution
         }
         return ans;
     	}
+    	
+    	*/
+    	
+    	//USING KANH'S ALGORITHM
+    	vector<int> indegree(V);
+    	vector<int> ans;
+    	for(int i=0;i<V;i++)
+    	{
+    	    for(auto j: adj[i])
+    	    {
+    	        indegree[j]++;
+    	    }
+    	}
+    	
+    	kanh(adj,indegree,ans,V);
+    	return ans;
+	}
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // { Driver Code Starts.
 
