@@ -8,10 +8,38 @@ using namespace std;
 class Solution
 {
 	public:
+	static bool cmp(const vector<int> &a,const vector<int> &b)
+	{
+	    return a[2] < b[2];
+	}
+	int findParent(vector<int>& parent, int node)
+	{
+	    if(parent[node]==node)
+	    return node;
+	    return parent[node]=findParent(parent,parent[node]);
+	}
+	void unionSet(int u, int v,vector<int>& parent, vector<int>& rank)
+	{
+	    u=findParent(parent, u);
+        v=findParent(parent,v);
+    
+	    if(rank[u] <rank[v])
+            parent[u]=v;
+        else if(rank[v]<rank[u])
+            parent[v]=u;
+        else
+        {
+            parent[v]=u;
+            rank[u]++;
+        }
+	}
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
+        
+        /*PRIMS ALGORITHM
+        
         vector<bool>mst(V,false);
         vector<int> parent(V,-1);
         vector<int>key(V,INT_MAX);
@@ -49,6 +77,39 @@ class Solution
         for(int i=0;i<V;i++)
         weight+=key[i];
         
+        return weight;
+        */
+        
+        //KRUSKALS ALGORITHM
+        vector<vector<int>> list;
+        for(int i=0;i<V;i++)
+        {
+            for(auto j:adj[i])
+            {
+                list.push_back({i,j[0],j[1]});
+            }
+        }
+        sort(list.begin(),list.end(),cmp);
+        vector<int>parent(V);
+        vector<int> rank(V,0);
+        
+        for(int i=0;i<V;i++)
+        parent[i]=i;
+        
+        int weight=0;
+        
+        for(auto edge:list)
+        {
+            int u=findParent(parent,edge[0]);
+            int v=findParent(parent,edge[1]);
+            int wt=edge[2];
+            
+            if(u!=v)
+            {
+                weight+=wt;
+                unionSet(u,v,parent,rank);
+            }
+        }
         return weight;
     }
 };
