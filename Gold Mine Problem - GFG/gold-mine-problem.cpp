@@ -31,28 +31,29 @@ public:
     }
     int tabulation(int n,int m,vector<vector<int>> M)
     {
-        vector<vector<int>> dp(n,vector<int>(m,-1));
+      
+        int ans=0;
         for(int i=0;i<n;i++)
-            dp[i][0]=M[i][0];
+            ans=max(ans,M[i][0]);
             
-            for(int i=1;i<m;i++)
-            {
-                for(int j=0;j<n;j++)
-                {
-                    int a= j-1>=0 ? dp[j-1][i-1] :0;
-                    int b= j+1<n? dp[j+1][i-1]:0;
-                    int c= dp[j][i-1];
-                    dp[j][i]=M[j][i] +max(a,max(b,c));
-                }
-            }
-        
-        int res=0;
-        for(int i=0;i<n;i++)
+        int x;
+            
+        for(int i=1;i<m;i++)
         {
-            for(int j=0;j<m;j++)
-            res=max(res,dp[i][j]);
+            for(int j=0;j<n;j++)
+            {
+                x=M[j][i-1];
+                if(j-1>=0)
+                    x=max(x,M[j-1][i-1]);
+                if(j+1<n)
+                    x=max(x,M[j+1][i-1]);
+                    
+                M[j][i]+=x;
+                ans=max(ans,M[j][i]);
+            }
         }
-         return res;   
+        
+        return ans;
     }
     int maxGold(int n, int m, vector<vector<int>> M)
     {
