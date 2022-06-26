@@ -29,19 +29,44 @@ public:
         
         return dp[x][y]=max(ur,max(r,dr));
     }
+    int tabulation(int n,int m,vector<vector<int>> M)
+    {
+        vector<vector<int>> dp(n,vector<int>(m,-1));
+        for(int i=0;i<n;i++)
+            dp[i][0]=M[i][0];
+            
+            for(int i=1;i<m;i++)
+            {
+                for(int j=0;j<n;j++)
+                {
+                    int a= j-1>=0 ? dp[j-1][i-1] :0;
+                    int b= j+1<n? dp[j+1][i-1]:0;
+                    int c= dp[j][i-1];
+                    dp[j][i]=M[j][i] +max(a,max(b,c));
+                }
+            }
+        
+        int res=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            res=max(res,dp[i][j]);
+        }
+         return res;   
+    }
     int maxGold(int n, int m, vector<vector<int>> M)
     {
         // code here
-        int maxi=INT_MIN;
-        vector<vector<int>> dp(n,vector<int>(m,-1));
+        // int maxi=INT_MIN;
+        // vector<vector<int>> dp(n,vector<int>(m,-1));
         
-        for(int i=0;i<n;i++)
-        {
-            
-            maxi=max(maxi, solve(i,0,n,m,M,dp));
-     
-        }
-        return maxi;
+        // for(int i=0;i<n;i++)
+        // {
+        //     maxi=max(maxi, solve(i,0,n,m,M,dp));
+        // }
+        // return maxi;
+        
+        return tabulation(n,m,M);
     }
 };
 
