@@ -38,44 +38,32 @@ struct val{
 };*/
 static bool mycmp(val a, val b)
 {
+    if(a.second==b.second)
     return a.first< b.first;
+    return a.second< b.second;
 }
-int solve(struct val p[], int n,int i,struct val a,vector<int>& dp)
-{
-    if(i==n)
-    return 0;
-    if(dp[i]!=-1) return dp[i];
-    
-    if(a.second < p[i].first )
-    {
-        return dp[i]=max(1+solve(p,n,i+1,p[i],dp),solve(p,n,i+1,a,dp));
-    }
-    else
-    return dp[i]=solve(p,n,i+1,a,dp);
-}
-int tabulation(struct val p[],int n)
+
+
+int greedy(struct val p[],int n)
 {
     sort(p,p+n,mycmp);
-    vector<int> dp(n,1);
-    for(int i=1;i<n;i++)
-    {
-        for(int j=0;j<i;j++)
-        {
-            if(p[j].second < p[i].first)
-            dp[i]=max(dp[i],1+dp[j]);
-        }
-    }
-    return *max_element(dp.begin(),dp.end());
     
+    int i=0,j=1,count=1;
+    while(j<n)
+    {
+        if(p[i].second < p[j].first)
+        {
+            count++;
+            i=j;
+        }
+        j++;
+    }
+    return count;
 }
 /*You are required to complete this method*/
 int maxChainLen(struct val p[],int n)
 {
     //Your code here
-    return tabulation(p,n);
-    vector<int> dp(n+1,-1);
-    struct val a;
-    a.first=0;
-    a.second=0;
-    return solve(p,n,0,a,dp);
+   return greedy(p,n);
+    
 }
