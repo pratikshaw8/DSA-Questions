@@ -13,18 +13,14 @@ class Solution
        // Your code here
        vector<int> curr(W+1);
        
-       for(int w=wt[0] ; w<=W ; w++)
-       {
-           curr[w]=val[0];
-       }
        
-       for(int index=1; index<n ; index++)
+       for(int index=1; index<=n ; index++)
        {
-           for(int w=W; w>=0 ; w--)
+           for(int w=W; w>=1 ; w--)
            {
-               int inc=0;
-               if(wt[index] <=w )
-                inc=val[index] + curr[w - wt[index]];
+               int inc=INT_MIN;
+               if(wt[index-1] <=w )
+                inc=val[index-1] + curr[w - wt[index-1]];
                 
                 int exc=curr[w];
                 
