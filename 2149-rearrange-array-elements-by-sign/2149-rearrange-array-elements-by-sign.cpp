@@ -11,20 +11,18 @@ public:
         {
             if(flag==1)
             {
-                if(nums[i] >0)
-                {
-                    v.push_back(nums[i]);
-                    flag=-1;
-                }
+                while(nums[i] <0)
+                    i++;
+                v.push_back(nums[i]);
+                flag=-1;
                 i++;
             }
             else
             {
-                if(nums[j]<0)
-                {
-                    v.push_back(nums[j]);
-                    flag=1;
-                }
+                while(nums[j]>0)
+                    j++;
+                v.push_back(nums[j]);
+                flag=1;
                 j++;
             }
         }
