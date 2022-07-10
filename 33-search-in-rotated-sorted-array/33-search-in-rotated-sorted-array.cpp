@@ -1,47 +1,33 @@
 class Solution {
 public:
-    int getPivot(vector<int>& nums)
-    {
-        int n=nums.size();
-        int i = 0, j = n - 1;
-
-        while (i < j)
-        {
-            int mid = i + (j - i) / 2;
-            if (nums[mid] >= nums[0])
-                i = mid + 1;
-            else
-                j = mid;
-        }
-        return i;
-    }
-    int binSearch(vector<int>& nums, int target ,int s,int e)
-    {
-        while (s <= e)
-        {
-            int mid = s + (e - s) / 2;
-            if(nums[mid] == target)
-                return mid;
-            else if (nums[mid] < target)
-                s = mid + 1;
-            else
-                e = mid-1;
-        }
-        return -1;
-    }
+    
     int search(vector<int>& nums, int target) {
         
-        int pivot=getPivot(nums);
         int n=nums.size();
-        
-        if(nums[pivot] <=target and target <= nums[n-1])
+        int l=0,h=n-1;
+        int mid;
+
+        while(l<=h)
         {
-            return binSearch(nums,target,pivot,n-1 );
+            mid=(l+h)/2;
+            if(nums[mid]==target)
+                return mid;
+            if(nums[0]<=nums[mid])
+            {
+                if(nums[0]<=target && nums[mid]>target)
+                    h=mid-1;
+                else
+                    l=mid+1;
+            }
+            else
+            {
+                if(target<=nums[n-1] && nums[mid]<target)
+                    l=mid+1;
+                else
+                    h=mid-1;
+            }
         }
-        else
-        {
-            return binSearch(nums,target,0,pivot-1 );
-        }
+        return -1;
         
     }
 };
