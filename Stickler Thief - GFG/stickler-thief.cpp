@@ -18,10 +18,25 @@ class Solution
         inc= arr[i] +solve(arr,n,i+2,dp);
         return dp[i]=max(exc,inc);
     }
+    int tabulation(int arr[],int n)
+    {
+        
+        int prev2=0;
+        int prev1=arr[0];
+        for(int i=1;i<n;i++)
+        {
+            int ans =max(prev1, prev2 + arr[i]);
+            prev2=prev1;
+            prev1=ans;
+        }
+        return prev1;
+        
+    }
     //Function to find the maximum money the thief can get.
     int FindMaxSum(int arr[], int n)
     {
         // Your code here
+        return tabulation(arr,n);
         vector<int> dp(n+1,-1);
         return solve(arr,n,0,dp);
     }
