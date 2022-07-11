@@ -8,24 +8,30 @@ class Solution{
 public:
     int *findTwoElement(int *arr, int n) {
         // code here
-        
-        
-        long long int len=n;
-        long long int sum =(len * (len+1))/2;
-        long long int sqSum =(len * (len+1) * (2 * len+1))/6;
-        
+        int repeat;
+        int missing;
         for(int i=0;i<n;i++)
         {
-            sum -= (long long)arr[i];
-            sqSum -= (long long)arr[i] * (long long)arr[i];
+            int idx=abs(arr[i]) - 1;
+            if(arr[idx] <0)
+            {
+                repeat=arr[i];
+            }
+            else
+                arr[idx]=-arr[idx];
+            
         }
-        int missing = (sum + sqSum/sum)/2;
-        int repeating = missing - sum;
-        
-        int *ans = new int[2];
-        ans[0] = repeating;
-        ans[1] = missing;
-        
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i] >0)
+            {
+                missing=i+1;
+                break;
+            }
+        }
+        int *ans=new int[2];
+        ans[0]=abs(repeat);
+        ans[1]=missing;
         return ans;
     }
 };
