@@ -8,8 +8,6 @@ class Solution{
 public:
 	void merge(int arr1[], int arr2[], int n, int m) {
 	    // code here
-	    sort(arr1,arr1+n);
-	    sort(arr2,arr2+m);
 	    
 	    int i=n-1,j=0;
 	    
