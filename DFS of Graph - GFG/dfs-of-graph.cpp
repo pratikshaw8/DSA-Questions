@@ -22,12 +22,13 @@ class Solution {
         // Code here
         vector<bool> visited(V);
         vector<int> ans;
-        for(int i=0;i<V;i++)
-        {
-            if(!visited[i]){
-                dfs(adj,visited,ans,i);
-            }
-        }
+        // for(int i=0;i<V;i++)
+        // {
+        //     if(!visited[i]){
+        //         dfs(adj,visited,ans,i);
+        //     }
+        // }
+        dfs(adj,visited,ans,0);
         return ans;
     }
 };
