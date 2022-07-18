@@ -27,11 +27,13 @@ public:
     int tabulation(vector<int> &obstacles)
     {
         int n=obstacles.size()-1;
-        vector<vector<int>> dp(4,vector<int>(n+1,1e9));
-        dp[0][n]=0;
-        dp[1][n]=0;
-        dp[2][n]=0;
-        dp[3][n]=0;
+        
+        vector<int> curr(4,1e9);
+        vector<int> next(4,1e9);
+        next[0]=0;
+        next[1]=0;
+        next[2]=0;
+        next[3]=0;
         
 
         for(int i=n-1;i>=0;i--)
@@ -39,7 +41,7 @@ public:
             for(int l=1;l<=3;l++)
             {
                 if(obstacles[i+1]!=l)
-                    dp[l][i] = dp[l][i+1];
+                    curr[l] = next[l];
                 else
                 {
                      int ans=1e9;
@@ -47,16 +49,18 @@ public:
                      {
                          if(l!=lane and obstacles[i]!=lane)
                          {
-                             ans=min(ans,dp[lane][i+1] +1);
+                             ans=min(ans,next[lane] +1);
                          }
                          
                      }
-                     dp[l][i]=ans;
+                     curr[l]=ans;
                 }
+                
             }
+            next=curr;
             
         }
-        return min({ dp[2][0] , dp[1][0]+1 , dp[3][0] +1});
+        return min({ next[2] , next[1]+1 , next[3] +1});
     }
     int minSideJumps(vector<int>& obstacles) {
         return tabulation(obstacles);
