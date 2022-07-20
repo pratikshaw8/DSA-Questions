@@ -14,8 +14,30 @@ public:
         
         return dp[idx][val] = max(inc,exc);
     }
+    int tabulation(vector<int>& satisfaction)
+    {
+        sort(satisfaction.begin(),satisfaction.end());
+        int n=satisfaction.size();
+        
+        
+        int ans=0;
+        
+        for(int idx=0;idx<n;idx++)
+        {
+            int sum=0;
+            int count=1;
+            for(int j=idx ;j<n;j++)
+            {
+                sum+= satisfaction[j] * count;
+                count++;
+            }
+            ans=max(sum,ans);
+        }
+        return ans;
+    }
     int maxSatisfaction(vector<int>& satisfaction) {
         
+        return tabulation(satisfaction);
         sort(satisfaction.begin(),satisfaction.end());
         int n=satisfaction.size();
         vector<vector<int>> dp(n,vector<int>(n+1,-1));
