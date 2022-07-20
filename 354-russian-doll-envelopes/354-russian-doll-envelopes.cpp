@@ -6,27 +6,24 @@ public:
             return a[1] > b[1];
         return a[0] < b[0];
     }
+    
     int maxEnvelopes(vector<vector<int>>& envelopes) {
         
         sort(envelopes.begin() , envelopes.end() , mycmp);
         vector<int> ans;
-        vector<int> heights;
-        for(int i=0;i<envelopes.size();i++)
-        {
-            heights.push_back(envelopes[i][1]);
-        }
         
-        ans.push_back(heights[0]);
+        ans.push_back(envelopes[0][1]);
         
-        for(int i=1;i<heights.size() ;i++)
+        for(int i=1;i<envelopes.size() ;i++)
         {
             
-            if(ans.back() < heights[i]  )
-                ans.push_back(heights[i]);
+            if(ans.back() < envelopes[i][1])
+                ans.push_back(envelopes[i][1]);
             else
             {
-                int idx= lower_bound(ans.begin() ,ans.end() , heights[i]) - ans.begin();
-                ans[idx] =heights[i];
+                int idx= lower_bound(ans.begin() , ans.end() ,envelopes[i][1]) - ans.begin();
+                
+                ans[idx] =envelopes[i][1];
             }
         }
         return ans.size();
