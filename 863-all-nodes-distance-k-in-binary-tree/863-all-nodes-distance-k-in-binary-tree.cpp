@@ -9,7 +9,7 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* target, int k, vector<int>& ans, 
+    void solve(TreeNode* &target, int k, vector<int>& ans, 
      unordered_map<TreeNode*,TreeNode*>& parent, unordered_map<TreeNode*,bool> &visited) 
     {
         if(target==NULL)return;
@@ -33,7 +33,7 @@ public:
         
         
     }
-    void findParent(TreeNode*root, unordered_map<TreeNode*, TreeNode*>& parent)
+    void findParent(TreeNode* root, unordered_map<TreeNode*, TreeNode*>& parent)
     {
         if(root==NULL)
             return;
