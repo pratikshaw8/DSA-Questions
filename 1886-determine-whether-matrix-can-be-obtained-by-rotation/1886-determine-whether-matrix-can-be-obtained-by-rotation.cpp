@@ -22,16 +22,8 @@ public:
                     swap(matrix[i][j],matrix[i][k]);
                 }
             }
-            bool flag=true;
-            for(int i =0;i<n;i++)
-            {
-                for(int j=0;j<n;j++)
-                {
-                    if(matrix[i][j] != target[i][j])
-                       flag=false;
-                }
-            }
-            if(flag)
+            
+            if(matrix == target)
                 return true;
             
             i++;
