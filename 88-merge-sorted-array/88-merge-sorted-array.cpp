@@ -8,24 +8,23 @@ public:
         
         int i=0,j=n;
          
-        nums1.clear();
-        
+        int idx=0;
         while(i<n and j<m+n)
         {
             if(nums2[i] <=nums2[j])
             {
-                nums1.push_back(nums2[i++]);
+                nums1[idx++] = nums2[i++];
             }
             else
-                nums1.push_back(nums2[j++]);
+                nums1[idx++] = nums2[j++];
         }
         while(i<n )
         {
-            nums1.push_back(nums2[i++]);
+            nums1[idx++] = nums2[i++];
         }
         while(j<m+n )
         {
-            nums1.push_back(nums2[j++]);
+            nums1[idx++] = nums2[j++];
         }
     }
 };
