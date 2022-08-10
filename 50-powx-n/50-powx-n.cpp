@@ -8,7 +8,7 @@ public:
         
         while(n)
         {
-            if(n&1 !=0)
+            if(n&1 ==1)
             {
                 ans*=x;
             }
