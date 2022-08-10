@@ -16,13 +16,13 @@ public:
                 ma=nums[i];
             }
         }
-        int freq=0;
+        count=0;
         for(int i=0;i<nums.size();i++)
         {
             if(nums[i] == ma)
-                freq++;
+                count++;
         }
-        if(freq>nums.size()/2)
+        if(count>nums.size()/2)
             return ma;
         return -1;
     }
