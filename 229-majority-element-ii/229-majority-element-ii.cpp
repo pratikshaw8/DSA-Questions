@@ -4,7 +4,7 @@ public:
         
         int n=nums.size();
         vector<int> ans;
-        map<int,int> m;
+        unordered_map<int,int> m;
         
         for(auto i:nums)
             m[i]++;
