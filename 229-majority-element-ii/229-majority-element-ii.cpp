@@ -3,44 +3,48 @@ public:
     vector<int> majorityElement(vector<int>& nums) {
         
         sort(nums.begin(),nums.end());
-        int count=1;
+        int count1=0,count2=0;
+        
         int first=1e9+7;
         int second=1e9+7;
         
-        for(int i=1;i<nums.size();i++)
+        for(int i=0;i<nums.size();i++)
         {
-            if(nums[i-1] == nums[i])
-                count++;
+            if(first == nums[i])
+                count1++;
+            else if(second == nums[i])
+                count2++;
+            else if(count1==0)
+            {
+                count1=1;
+                first=nums[i];
+            }
+            else if(count2==0)
+            {
+                count2=0;
+                second=nums[i];
+            }
             else
             {
-                if(count > nums.size()/3)
-                {
-                    if(first==1e9+7)
-                    {
-                        first = nums[i-1];
-                    }
-                    else
-                        second = nums[i-1];
-                }
-                
-                count=1;
+                count1--;
+                count2--;
             }
         }
-        if(count > nums.size()/3)
-                {
-                    if(first==1e9+7)
-                    {
-                        first = nums[nums.size()-1];
-                    }
-                    else
-                        second = nums[nums.size()-1];
-                }
-        
-        if(first==1e9+7)
-            return {};
-        else if(second ==1e9+7)
-            return {first};
-        return {first,second};
+        count1=0;
+        count2=0;
+        for(int i=0;i<nums.size() ;i++)
+        {
+            if(nums[i] == first)
+                count1++;
+            else if(nums[i] == second)
+                count2++;
+        }
+        vector<int> ans;
+        if(count1 >nums.size()/3)
+            ans.push_back(first);
+        if(count2 > nums.size()/3)
+            ans.push_back(second);
+        return ans;
             
     }
 };
