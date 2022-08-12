@@ -13,23 +13,19 @@ class Solution {
 public:
     vector<TreeNode*> ans;
     unordered_map<string,int> mp;
-    
-    string solve(TreeNode* root)
+    string solve(TreeNode *root)
     {
         if(root==NULL)
-            return "";
+            return "NULL";
         
-        string ll = 'l'+solve(root->left);
-        string rr = 'r' +solve (root->right);
-        string g = ll + to_string(root->val) + rr;
+        string s= to_string(root->val) + "," + solve(root->left) + "," + solve(root->right);
         
-        if(mp[g] == 1)
-        {
+        if(mp[s]++ ==1){
             ans.push_back(root);
-            mp[g]++;
         }
-        mp[g]++;
-        return g;
+        
+
+        return s;
     }
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
         solve(root);
