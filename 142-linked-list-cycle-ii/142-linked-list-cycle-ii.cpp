@@ -6,7 +6,6 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-#include<unordered_map>
 class Solution {
 public:
     ListNode* floydDetection(ListNode*head)
@@ -32,8 +31,9 @@ public:
 
         return NULL;
     }
-    ListNode* getStartingNode(ListNode* head)
-    {
+    
+    ListNode *detectCycle(ListNode *head) {
+        
         if(head==NULL)
         return NULL;
     
@@ -47,15 +47,6 @@ public:
             intersection=intersection->next;
         }
         return small;
-    }
-    
-    
-    ListNode *detectCycle(ListNode *head) {
-        
-        int c=0;
-        
-        ListNode* startingNode= getStartingNode(head);
-        return startingNode;
         
     }
 };
