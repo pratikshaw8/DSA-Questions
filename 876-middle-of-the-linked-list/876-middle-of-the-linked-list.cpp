@@ -10,34 +10,20 @@
  */
 class Solution {
 public:
-    
-    
-    int length(ListNode *head)
-    {
-        int c=0;
-        ListNode *temp=head;
-        while(temp!=NULL)
-        {
-            c++;
-            temp=temp->next;
-        }
-        return c;
-    }
-    
     ListNode* middleNode(ListNode* head) {
+        if(head->next == NULL)
+            return head;
+        ListNode *slow=head , *fast=head->next;
         
-        int leng= length(head);
-        ListNode *temp=head;
-        int middle=leng/2+1;
-        
-        while(middle>1)
+        do
         {
-            temp=temp->next;
-            middle--;
-        }
+            slow=slow->next;
+            if(fast)
+            fast=fast->next;
+            if(fast)
+                fast=fast->next;
+        }while(fast and slow);
         
-        
-        return temp;
-            
+        return slow;
     }
 };
