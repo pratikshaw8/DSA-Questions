@@ -10,55 +10,49 @@
  */
 class Solution {
 public:
-    ListNode* getMid(ListNode *head)
+    ListNode * reverse(ListNode* head)
     {
-        ListNode*slow=head;
-        ListNode*fast=head->next;
+        ListNode * rev=head,*prev=NULL, *nxt=head->next;
         
-        while(fast!=NULL && fast->next !=NULL)
+        while(rev)
         {
-            fast=fast->next->next;
-            slow=slow->next;
-        }
-        return slow;
-    }
-    
-    ListNode* reverse(ListNode *head)
-    {
-        ListNode* temp=head;
-        ListNode*prev=NULL;
-        ListNode*next=NULL;
-        
-        while(temp!=NULL)
-        {
-            next=temp->next;
-            temp->next=prev;
-            prev=temp;
-            temp=next;
+            nxt=rev->next;
+            rev->next= prev;
+            prev=rev;
+            rev=nxt;
         }
         return prev;
     }
-    
-    bool isPalindrome(ListNode* head) {
-        if(head->next==NULL)
-        return true;
-        
-        
-        ListNode* middle=getMid(head);
-        
-        middle->next=reverse(middle->next);
-        ListNode*temp=head;
-        ListNode*temp2=middle->next;
-        
-        while(temp2!=NULL)
+    bool checkIsPalindrome(ListNode *first , ListNode * second)
+    {
+        while(first and second)
         {
-            if(temp->val !=temp2->val)
-            return false;
-            temp=temp->next;
-            temp2=temp2->next;
+            if(first->val != second->val ) return false;
+            first=first->next;
+            second=second->next;
         }
-        
-        temp=middle->next;
+        if(first or second) return false;
         return true;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(!head or !head->next)
+            return true;
+        
+        ListNode *slow =head,*fast=head;
+        
+        while(fast->next and fast->next->next)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        ListNode *secondList=slow->next;
+        if(!fast->next)
+        {
+            slow->next= NULL;
+            ListNode *firstList= reverse(head)->next;
+            return checkIsPalindrome(firstList,secondList);
+        }
+        slow->next=NULL;
+        return checkIsPalindrome(secondList, reverse(head));
     }
 };
