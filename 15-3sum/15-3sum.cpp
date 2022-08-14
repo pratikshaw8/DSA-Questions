@@ -1,31 +1,42 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin() , nums.end());
-        vector<vector<int>> ans;
-        set<vector<int>> st;
-        for(int i=0 ; i<nums.size()-1 ; i++)
+        if (nums.size() < 3) {
+            return {};
+        }
+        vector<vector<int>> result; 
+        sort(nums.begin(), nums.end());
+    
+        for(auto itr = nums.begin(); itr != nums.end() -2; )
         {
-            int l=i+1,r=nums.size()-1;
-            
-            while(l<r)
+            if(*itr > 0  ) break;
+            int target = - (*itr);
+
+            auto first = (itr +1);
+            auto last = (nums.end() -1); 
+            while(first < last)
             {
-                int sum = nums[i] + nums[l] + nums[r];
-                if(sum == 0){
-                    st.insert({nums[i],nums[l],nums[r]});
-                    l++;
-                    r--;
-                }
-                else if(sum<0) l++;
+                int sum = *first + *last;
+                if( sum > target) --last;
+                else if( sum < target) ++first;
                 else
-                    r--;
-                
+                {
+                    result.push_back({*itr, *first, *last});
+
+                    while ((first < last) && (*(first + 1) == *first)) {
+                        ++first;
+                    }
+                    ++first;
+
+                    while ((first < last) && (*(last - 1) == *last)) {
+                        --last;
+                    }
+                    --last;
+                }
             }
+            itr = upper_bound(itr, nums.end()-2,*itr );   
         }
-        for(auto i:st)
-        {
-            ans.push_back(i);
-        }
-        return ans;
+        
+        return result;   
     }
 };
