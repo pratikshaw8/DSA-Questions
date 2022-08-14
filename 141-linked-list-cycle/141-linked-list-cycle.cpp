@@ -6,30 +6,20 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-#include<unordered_map>
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        unordered_map<ListNode*,bool> m;
-        ListNode*temp=head;
+        ListNode *fast=head,  *slow=head;
         
-        if(head==NULL)
-            return false;
-        else if(head->next==NULL)
-            return false;
-        else if(head->next==head)
-            return true;
-        
-        while(temp->next!=NULL)
+        while(fast and fast->next)
         {
-            if(m[temp->next]==true)
-            {
+            slow=slow->next;
+            fast=fast->next->next;
+            
+            if(fast == slow)
                 return true;
-            }
-            m[temp]=true;
-            temp=temp->next;
         }
-        return false;
         
+        return false;
     }
 };
