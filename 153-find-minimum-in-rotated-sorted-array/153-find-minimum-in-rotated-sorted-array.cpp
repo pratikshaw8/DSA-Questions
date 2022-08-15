@@ -18,7 +18,8 @@ public:
             }
             else
             {
-                
+                if(nums[0] > nums[n-1] and nums[n-2] > nums[n-1] )
+                    return nums[n-1];
                 j=mid-1;
             }
             
