@@ -1,22 +1,17 @@
 class Solution {
 public:
-    bool check(vector<int> nums, int i, int threshold)
+    bool check(vector<int> &nums, int mid, int threshold)
     {
         int sum=0;
-        for(int idx=0;idx<nums.size();idx++)
+        for(auto &val : nums)
         {
-            int r= nums[idx] % i ==0 ? nums[idx]/i : nums[idx]/i +1;
-            sum += r;
+            sum+=ceil((double)val/mid);
         }
-        if(sum<= threshold) return true;
-        return false;
+        return sum<= threshold;
+        
     }
     int smallestDivisor(vector<int>& nums, int threshold) {
-        int i=1, j=0;
-        for(auto x: nums)
-            j=max(j,x);
-        
-        int ans=0;
+        int i=1, j=*max_element(nums.begin() , nums.end()),ans=1;
         while(i<=j)
         {
             int mid = i+ (j-i)/2;
