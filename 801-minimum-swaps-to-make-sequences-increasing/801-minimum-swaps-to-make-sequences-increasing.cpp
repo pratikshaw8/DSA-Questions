@@ -24,7 +24,9 @@ public:
     int tabulation(vector<int>& nums1, vector<int>& nums2)
     {
         int n=nums1.size();
-        vector<vector<int>> dp(n+1,vector<int>(2,0));
+        
+        int sw=0,noSw=0; // swap and noSwap
+        int currSwap=0,currNoSwap=0;
         
         for(int idx = n-1; idx>=1;idx--)
         {
@@ -39,18 +41,24 @@ public:
 
                 //noswap
                 if(nums1[idx] > prev1 and nums2[idx] > prev2){ 
-                    ans= dp[idx+1][0];
+                    ans= noSw;
                 }
 
                 if(nums1[idx] > prev2 and nums2[idx] > prev1){
-                    ans= min(ans, 1 + dp[idx+1][1]);
+                    ans= min(ans, 1 + sw);
                 }
 
-                dp[idx][swapped] = ans;
+                if(swapped)
+                    currSwap=ans;
+                else 
+                    currNoSwap = ans;
+                
             }
+            sw=currSwap;
+            noSw=currNoSwap;
             
         }
-        return dp[1][0];
+        return min(sw,noSw);
         
     }
     int minSwap(vector<int>& nums1, vector<int>& nums2) {
