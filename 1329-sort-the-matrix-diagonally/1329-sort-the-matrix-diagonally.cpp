@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
         int m=mat.size() , n=mat[0].size();
-        
+        int x,y;
         for(int i=0;i<n;i++)
         {
-            int x=0,y=i;
+            x=0,y=i;
             vector<int> temp;
             
             while(x<m and y<n)
@@ -22,7 +22,7 @@ public:
         
         for(int i=1;i<m;i++)
         {
-            int x=i,y=0;
+            x=i,y=0;
             vector<int> temp;
             
             while(x<m and y<n)
