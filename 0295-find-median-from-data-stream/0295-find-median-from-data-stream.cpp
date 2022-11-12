@@ -3,25 +3,41 @@ public:
     priority_queue<int> maxheap;
     priority_queue<int, vector<int> , greater<int>> minheap;
     MedianFinder() {
+        
     }
+    
     void addNum(int num) {
         maxheap.push(num);
-        minheap.push(maxheap.top());
-        maxheap.pop();
-        
-        if(minheap.size() > maxheap.size())
+        if(maxheap.size() - minheap.size() > 1)  
         {
-            maxheap.push(minheap.top());
-            minheap.pop();
+            int temp = maxheap.top();
+            maxheap.pop();
+            minheap.push(temp);
         }
         
     }
-    double findMedian() {
-        if(maxheap.size() > minheap.size())
-            return maxheap.top();
-        return (maxheap.top() + minheap.top() ) / 2.0;
-    }
     
+    double findMedian() {
+        if(maxheap.size() - minheap.size() == 1)
+        {
+            int tmp = maxheap.top();
+            maxheap.pop();
+            minheap.push(tmp);
+            return minheap.top();
+        }
+        else
+        {
+            if(maxheap.top() > minheap.top())    
+            {
+                maxheap.push(minheap.top());
+                minheap.pop();
+                minheap.push(maxheap.top());
+                maxheap.pop();
+            }
+            return (maxheap.top() + minheap.top())/2.0;
+        }
+        
+    }
 };
 
 /**
