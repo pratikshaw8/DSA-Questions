@@ -2,19 +2,19 @@ class Solution {
 public:
 
     int maxProduct(vector<int>& nums) {
-        int r= nums[0];
+        int left= 1,right=1,n=nums.size();
+        int ans=INT_MIN;
         
-        for(int i=1, imax=r, imin=r; i<nums.size();i++)
+        for(int i=0;i<n ; i++)
         {
-            if(nums[i] < 0)
-                swap(imax,imin);
-            
-            imax= max(imax*nums[i] , nums[i]);
-            imin = min(imin*nums[i], nums[i]);
-            
-            r= max(r,imax);
+            left*=nums[i];
+            right*=nums[n-i-1];
+
+            ans=max({ans,left,right,nums[i]});
+            if(left==0) left=1;
+            if(right == 0) right=1;
         }
-        return r;
         
+        return ans;
     }
 };
