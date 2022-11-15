@@ -13,9 +13,10 @@ public:
         string r="";
         while(!st.empty())
         {
-            r = st.top() + r;
+            r += st.top();
             st.pop();
         }
+        reverse(r.begin(),r.end());
         return r;
     }
 };
