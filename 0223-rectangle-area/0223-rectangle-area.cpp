@@ -4,16 +4,21 @@ public:
         int a1 = (ax2-ax1) * (ay2-ay1);
         int a2 =(bx2-bx1) * (by2-by1);
         
-        int il ,ib;
+        int left = max(bx1,ax1), right = min(ax2,bx2);
+        int x = right-left;
         
-        if((ax1 <= bx1 and ax2<=bx1) or (ax1>= bx2 and ax2>=bx2)
-           or (ay1<=by1 and ay2<=by1) or (ay1>= by2 and ay2>=by2))
-            return a1+a2;
+        int top = min(ay2,by2), bottom = max(by1,ay1);
+        int y = top-bottom;
         
-        il = min(ax2,bx2) - max(ax1, bx1);
-        ib = min(ay2,by2) - max(ay1,by1);
+        int intersection=0;
+        if(x>0 and y>0)
+        {
+            intersection = x*y;
+        }
         
-        return a1+a2 - il*ib;
+        
+        
+        return a1+a2 - intersection;
         
     }
 };
