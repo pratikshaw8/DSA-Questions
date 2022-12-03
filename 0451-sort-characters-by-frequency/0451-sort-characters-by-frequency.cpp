@@ -8,7 +8,7 @@ public:
         {
             mp[x]++;
         }
-        string ans="";
+        string ans;
         
         multimap<int, char> MM;
   
@@ -20,11 +20,7 @@ public:
         
         for(auto x:MM)
         {
-            int a = x.first;
-            while(a--)
-            {
-                ans += x.second;
-            }
+            ans.append(x.first,x.second);
         }
         reverse(ans.begin(),ans.end());
         return ans;
