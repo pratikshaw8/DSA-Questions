@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -108,6 +108,7 @@ int main() {
     return 0;
 }
 
+
 // } Driver Code Ends
 
 
@@ -126,48 +127,22 @@ struct Node
 };
  */
 
+void solve(Node* root, int height, vector<int>&ans)
+{
+    if(root == NULL) return;
+    
+    if(height == ans.size())
+        ans.push_back(root->data);
+    solve(root->left,height+1,ans);
+    solve(root->right,height+1,ans);
+    
+}
+
 //Function to return a list containing elements of left view of the binary tree.
 vector<int> leftView(Node *root)
 {
    // Your code here
    vector<int> ans;
-   if(root==NULL)
-    return ans;
-   queue<Node*> q;
-   q.push(NULL);
-   q.push(root);
-   
-   
-   bool flag=false;
-   while(!q.empty())
-   {
-       Node *temp=q.front();
-       q.pop();
-       
-       if(temp==NULL)
-       {
-           flag=true;
-           if(!q.empty())
-            q.push(NULL);
-       }
-       else
-       {
-           if(flag==true)
-           {
-                ans.push_back(temp->data);
-                flag=false;
-           }
-           
-           if(temp->left)
-            q.push(temp->left);
-           if(temp->right)
-            q.push(temp->right);
-       }
-   }
-   
-   
-   
-   
+   solve(root,0,ans);
    return ans;
-   
 }
